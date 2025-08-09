@@ -1,65 +1,44 @@
-FROM alpine:3.20
+FROM ubuntu:24.04
 
-# Install the packages we need. Avahi will be included
-RUN echo -e "https://dl-cdn.alpinelinux.org/alpine/edge/testing\nhttps://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories &&\
-	apk add --update cups \
-	cups-libs \
+
+RUN apt-get update && apt-get install -y \
+	locales \
+	brother-lpr-drivers-extra \
+	brother-cups-wrapper-extra \
+	printer-driver-foo2zjs-common \
+	printer-driver-splix \
+	printer-driver-gutenprint \
+	gutenprint-doc \
+	gutenprint-locales \
+	libgutenprint9 \
+	libgutenprint-doc \
+	ghostscript \
+	hplip \
+	cups \
 	cups-pdf \
 	cups-client \
 	cups-filters \
-	cups-dev \
-	ghostscript \
-	hplip \
-	avahi \
 	inotify-tools \
+	avahi-daemon \
+	avahi-discover \
 	python3 \
 	python3-dev \
-	build-base \
+	python3-pip \
+	python3-cups \
 	wget \
 	rsync \
-	py3-pycups \
-	perl \
-	&& rm -rf /var/cache/apk/*
+	&& rm -rf /var/lib/apt/lists/*
 
-# Build and install brlaser from source
-RUN apk add --no-cache git cmake && \
-    git clone https://github.com/pdewacht/brlaser.git && \
-    cd brlaser && \
-    cmake . && \
-    make && \
-    make install && \
-    cd .. && \
-    rm -rf brlaser
-
-# Build and install gutenprint from source
-RUN wget -O gutenprint-5.3.5.tar.xz https://sourceforge.net/projects/gimp-print/files/gutenprint-5.3/5.3.5/gutenprint-5.3.5.tar.xz/download && \
-    tar -xJf gutenprint-5.3.5.tar.xz && \
-    cd gutenprint-5.3.5 && \
-    # Patch to rename conflicting PAGESIZE identifiers to GPT_PAGESIZE in all files in src/testpattern
-    find src/testpattern -type f -exec sed -i 's/\bPAGESIZE\b/GPT_PAGESIZE/g' {} + && \
-    ./configure && \
-    make -j$(nproc) && \
-    make install && \
-    cd .. && \
-    rm -rf gutenprint-5.3.5 gutenprint-5.3.5.tar.xz && \
-    # Fix cups-genppdupdate script shebang
-    sed -i '1s|.*|#!/usr/bin/perl|' /usr/sbin/cups-genppdupdate
-
-# This will use port 631
 EXPOSE 631
 
-# We want a mount for these
 VOLUME /config
 VOLUME /services
 
-# Add scripts
 ADD root /
 RUN chmod +x /root/*
 
-#Run Script
 CMD ["/root/run_cups.sh"]
 
-# Baked-in config file changes
 RUN sed -i 's/Listen localhost:631/Listen 0.0.0.0:631/' /etc/cups/cupsd.conf && \
 	sed -i 's/Browsing Off/Browsing On/' /etc/cups/cupsd.conf && \
  	sed -i 's/IdleExitTimeout/#IdleExitTimeout/' /etc/cups/cupsd.conf && \
