@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/axolotlcloud/cups-avahi-airprint/compare/v0.1.2...v0.1.3) (2025-08-10)
+
+
+### Bug Fixes
+
+* install `iproute2` package ([6b181d8](https://github.com/axolotlcloud/cups-avahi-airprint/commit/6b181d81ac22def29535bf8713b3525c5212d8a2))
+
 ## [0.1.2](https://github.com/axolotlcloud/cups-avahi-airprint/compare/v0.1.1...v0.1.2) (2025-08-10)
 
 
