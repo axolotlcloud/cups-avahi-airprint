@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 	cups-client \
 	cups-filters \
 	inotify-tools \
+	iproute2 \
 	avahi-daemon \
 	avahi-discover \
 	python3 \
