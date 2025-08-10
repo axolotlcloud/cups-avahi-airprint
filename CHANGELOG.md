@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/axolotlcloud/cups-avahi-airprint/compare/v0.1.0...v0.1.1) (2025-08-10)
+
+
+### Bug Fixes
+
+* switch to debian-based `useradd` command ([8a4f30c](https://github.com/axolotlcloud/cups-avahi-airprint/commit/8a4f30c7233f4e846bfed6faad040d329db517ed))
+
 ## [0.1.0](https://github.com/axolotlcloud/cups-avahi-airprint/compare/v0.1.0...v0.1.0) (2025-08-10)
 
 
