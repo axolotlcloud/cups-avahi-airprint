@@ -53,8 +53,10 @@ jobs:
 
       - name: Obtain image digest
         id: digest
+        env:
+          BUILD_METADATA: ${{ steps.build.outputs.metadata }}
         run: |
-          DIGEST=$(echo ${{ steps.build.outputs.metadata }} | jq -r '.default."containerimage.digest"')
+          DIGEST=$(echo "$BUILD_METADATA" | jq -r '.default."containerimage.digest"')
           echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
 
       - name: Generate artifact attestation
