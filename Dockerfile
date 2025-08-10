@@ -1,10 +1,7 @@
 FROM ubuntu:24.04
 
-
 RUN apt-get update && apt-get install -y \
 	locales \
-	brother-lpr-drivers-extra \
-	brother-cups-wrapper-extra \
 	printer-driver-foo2zjs-common \
 	printer-driver-splix \
 	printer-driver-gutenprint \
@@ -37,8 +34,6 @@ VOLUME /services
 ADD root /
 RUN chmod +x /root/*
 
-CMD ["/root/run_cups.sh"]
-
 RUN sed -i 's/Listen localhost:631/Listen 0.0.0.0:631/' /etc/cups/cupsd.conf && \
 	sed -i 's/Browsing Off/Browsing On/' /etc/cups/cupsd.conf && \
  	sed -i 's/IdleExitTimeout/#IdleExitTimeout/' /etc/cups/cupsd.conf && \
@@ -51,3 +46,5 @@ RUN sed -i 's/Listen localhost:631/Listen 0.0.0.0:631/' /etc/cups/cupsd.conf && 
 	echo "ReadyPaperSizes A4,TA4,4X6FULL,T4X6FULL,2L,T2L,A6,A5,B5,L,TL,INDEX5,8x10,T8x10,4X7,T4X7,Postcard,TPostcard,ENV10,EnvDL,ENVC6,Letter,Legal" >> /etc/cups/cupsd.conf && \
 	echo "DefaultPaperSize Letter" >> /etc/cups/cupsd.conf && \
 	echo "pdftops-renderer ghostscript" >> /etc/cups/cupsd.conf
+
+CMD ["/root/run_cups.sh"]
