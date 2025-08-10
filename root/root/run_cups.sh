@@ -55,7 +55,7 @@ cleanup() {
 }
 
 # Set up trap for cleanup
-trap cleanup SIGTERM SIGINT
+trap cleanup TERM INT
 
 # Ensure any stale PID files are removed before starting
 if [ -f /var/run/avahi-daemon/pid ]; then
