@@ -22,14 +22,14 @@ docker run --name cups --restart unless-stopped  --net host\
   -v <your config dir>:/config \
   -e CUPSADMIN="<username>" \
   -e CUPSPASSWORD="<password>" \
-  axolotlcloud/cups-avahi-airprint:latest
+  ghcr.io/axolotlcloud/cups-avahi-airprint:latest
 ```
 
 ### Example docker compose config:
 ```
 services:
   airprint:
-    image: axolotlcloud/cups-avahi-airprint:latest
+    image: ghcr.io/axolotlcloud/cups-avahi-airprint:latest
     container_name: cups
     network_mode: host
     volumes:
