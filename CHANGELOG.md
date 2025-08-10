@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/axolotlcloud/cups-avahi-airprint/compare/v0.1.1...v0.1.2) (2025-08-10)
+
+
+### Bug Fixes
+
+* remove `SIG` prefix from signals for trap ([ff89b2c](https://github.com/axolotlcloud/cups-avahi-airprint/commit/ff89b2ceefbf715c8c014528266a9e3874136768))
+
 ## [0.1.1](https://github.com/axolotlcloud/cups-avahi-airprint/compare/v0.1.0...v0.1.1) (2025-08-10)
 
 
